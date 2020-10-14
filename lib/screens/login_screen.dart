@@ -1,7 +1,10 @@
+import 'package:chat_app/components/rounded_button.dart';
 import 'package:flutter/material.dart';
+import 'package:chat_app/constants.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String id = 'login_screen';
+
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -26,42 +29,26 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               SizedBox(height: 48.0),
               TextField(
-                onChanged: (value){
-
-                },
-                decoration: InputDecoration(
-                  hintText: 'email',
-                  contentPadding:
-                  EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(32.0)),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueAccent, width: 10.0),
-                    borderRadius: BorderRadius.circular(32.0),
-                  ),
-                ),
+                onChanged: (value) {},
+                decoration: kTextFieldDecoration.copyWith(hintText: 'メールアドレス')
               ),
               SizedBox(height: 15.0),
               TextField(
-                onChanged: (value){
+                onChanged: (value) {
 
                 },
-                decoration: InputDecoration(
-                  hintText: 'password',
-                  contentPadding:
-                  EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(32.0)),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueAccent, width: 10.0),
-                    borderRadius: BorderRadius.circular(32.0),
-                  ),
-                ),
+                decoration: kTextFieldDecoration.copyWith(hintText: 'パスワード')
               ),
-            ]
-        ),
+              SizedBox(height: 24.0),
+              RoundedButton(
+                title: 'サインイン',
+                colour: Colors.lightBlueAccent,
+                onPressd: () {
+
+                },
+              )
+            ]),
       ),
     );
   }
 }
-

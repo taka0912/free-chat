@@ -1,4 +1,6 @@
+import 'package:chat_app/components/rounded_button.dart';
 import 'package:flutter/material.dart';
+import 'package:chat_app/constants.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static const String id = 'registration_screen';
@@ -30,35 +32,23 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 onChanged: (value) {
 
                 },
-                decoration: InputDecoration(
-                  hintText: 'email',
-                  contentPadding:
-                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(32.0)),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueAccent, width: 10.0),
-                    borderRadius: BorderRadius.circular(32.0),
-                  ),
-                ),
+                decoration: kTextFieldDecoration.copyWith(hintText: 'メールアドレス')
               ),
               SizedBox(height: 15.0),
               TextField(
-                onChanged: (value){
+                onChanged: (value) {
 
                 },
-                decoration: InputDecoration(
-                  hintText: 'password',
-                  contentPadding:
-                  EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(32.0)),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueAccent, width: 10.0),
-                    borderRadius: BorderRadius.circular(32.0),
-                  ),
-                ),
+                decoration:kTextFieldDecoration.copyWith(hintText: 'パスワード')
               ),
+              SizedBox(height: 24.0),
+              RoundedButton(
+                title: 'サインアップ',
+                colour: Colors.lightBlueAccent,
+                onPressd: () {
+
+                },
+              )
             ]),
       ),
     );
