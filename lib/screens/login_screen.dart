@@ -29,12 +29,18 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               SizedBox(height: 48.0),
               TextField(
-                onChanged: (value) {},
-                decoration: kTextFieldDecoration.copyWith(hintText: 'メールアドレス')
+                  keyboardType: TextInputType.emailAddress,
+                  textAlign: TextAlign.center,
+                  onChanged: (value) {
+
+                  },
+                  decoration: kTextFieldDecoration.copyWith(hintText: 'メールアドレス')
               ),
               SizedBox(height: 15.0),
               TextField(
-                onChanged: (value) {
+                  obscureText: true,
+                  textAlign: TextAlign.center,
+                  onChanged: (value) {
 
                 },
                 decoration: kTextFieldDecoration.copyWith(hintText: 'パスワード')
@@ -42,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(height: 24.0),
               RoundedButton(
                 title: 'サインイン',
-                colour: Colors.lightBlueAccent,
+                colour: Colors.blueAccent,
                 onPressd: () {
 
                 },
