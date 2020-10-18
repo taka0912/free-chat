@@ -1,6 +1,9 @@
 import 'package:chat_app/components/rounded_button.dart';
+import 'package:chat_app/screens/chat_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/constants.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String id = 'login_screen';
@@ -10,50 +13,74 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final _auth = auth.FirebaseAuth.instance;
+  bool showSpinner = false;
+  String email;
+  String password;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 24.0),
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Hero(
-                tag: 'chat',
-                child: Container(
-                  height: 200.0,
-                  child: Image.asset('image/chat.png'),
+      body: ModalProgressHUD(
+        inAsyncCall: showSpinner,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 24.0),
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Flexible(
+                  child: Hero(
+                    tag: 'chat',
+                    child: Container(
+                      height: 200.0,
+                      child: Image.asset('image/chat.png'),
+                    ),
+                  ),
                 ),
-              ),
-              SizedBox(height: 48.0),
-              TextField(
-                  keyboardType: TextInputType.emailAddress,
-                  textAlign: TextAlign.center,
-                  onChanged: (value) {
-
+                SizedBox(height: 48.0),
+                TextField(
+                    keyboardType: TextInputType.emailAddress,
+                    textAlign: TextAlign.center,
+                    onChanged: (value) {
+                      email = value;
+                    },
+                    decoration: kTextFieldDecoration.copyWith(hintText: 'メールアドレス')
+                ),
+                SizedBox(height: 15.0),
+                TextField(
+                    obscureText: true,
+                    textAlign: TextAlign.center,
+                    onChanged: (value) {
+                      password = value;
                   },
-                  decoration: kTextFieldDecoration.copyWith(hintText: 'メールアドレス')
-              ),
-              SizedBox(height: 15.0),
-              TextField(
-                  obscureText: true,
-                  textAlign: TextAlign.center,
-                  onChanged: (value) {
-
-                },
-                decoration: kTextFieldDecoration.copyWith(hintText: 'パスワード')
-              ),
-              SizedBox(height: 24.0),
-              RoundedButton(
-                title: 'サインイン',
-                colour: Colors.blueAccent,
-                onPressd: () {
-
-                },
-              )
-            ]),
+                  decoration: kTextFieldDecoration.copyWith(hintText: 'パスワード')
+                ),
+                SizedBox(height: 24.0),
+                RoundedButton(
+                  title: 'サインイン',
+                  colour: Colors.lightBlueAccent,
+                  onPressd: () async {
+                    setState(()  {
+                      showSpinner = true;
+                    });
+                    try {
+                     final user = await _auth.signInWithEmailAndPassword(email: email, password: password);
+                     if (user != null){
+                      Navigator.pushNamed(context, ChatScreen.id);
+                      }
+                     setState(() {
+                      showSpinner = false;
+                     });
+                     }
+                     catch (e) {
+                      print(e);
+                    }
+                    },
+                )
+              ]),
+        ),
       ),
     );
   }
